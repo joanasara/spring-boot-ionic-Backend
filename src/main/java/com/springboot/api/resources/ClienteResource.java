@@ -1,6 +1,8 @@
 package com.springboot.api.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 import com.springboot.api.domain.Cliente;
+import com.springboot.api.dto.ClienteDTO;
 import com.springboot.api.services.ClienteSevice;
 
 @RestController
@@ -28,29 +31,43 @@ public class ClienteResource {
 
 		return ResponseEntity.ok().body(obj);
 	}
-	
-	@RequestMapping(method= RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Cliente obj){
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@RequestBody Cliente obj) {
 		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path
-				("/{id}").buildAndExpand(obj.getId()).toUri();
-		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+
 		return ResponseEntity.created(uri).build();
 	}
-	
-	@RequestMapping(value= "/{id}", method= RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Cliente obj, @PathVariable Integer id){
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Cliente obj, @PathVariable Integer id) {
 		obj.setId(id);
-		obj = service .update(obj);
+		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
-	@RequestMapping(value="/{id}",method=RequestMethod.DELETE)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
-	 service.delete(id);
-	 return ResponseEntity.noContent().build();
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+
+	}
 	
-}
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<ClienteDTO>> findAll() {
+		List<Cliente> list = service.findAll();
+		List<ClienteDTO> listDto = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
+	}
 	
 	
 	
+	
+	
+	
+	
+	
+	
+
 }
