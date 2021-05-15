@@ -1,6 +1,6 @@
 package com.springboot.api.services;
 
-
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +41,12 @@ public class CategoriaService {
 		try {
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-            throw new  DataIntegrityExcepetion("não e possivel Ecluir categoria que possui produtor");
+			throw new DataIntegrityExcepetion("não e possivel Ecluir categoria que possui produtor");
 		}
+	}
+
+	public List<Categoria> findAll() {
+		return repo.findAll();
 	}
 
 }
