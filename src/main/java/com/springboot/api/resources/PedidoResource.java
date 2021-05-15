@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-
 import com.springboot.api.domain.Pedido;
 import com.springboot.api.services.PedidoService;
 
@@ -38,4 +37,16 @@ public class PedidoResource {
 		
 		return ResponseEntity.created(uri).build();
 	}
+	
+	
+	@RequestMapping(value= "/{id}", method= RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Pedido obj, @PathVariable Integer id){
+		obj.setId(id);
+		obj = service .update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	
+	
+	
 }
