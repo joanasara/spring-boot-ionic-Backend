@@ -3,11 +3,13 @@ package com.springboot.api.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.springboot.api.domain.Pedido;
 
 import com.springboot.api.repository.PedidoRepository;
+import com.springboot.api.services.exceptions.DataIntegrityExcepetion;
 import com.springboot.api.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -31,6 +33,16 @@ public class PedidoService {
 	public Pedido update(Pedido obj) {
 		find(obj.getId());
 		return repo.save(obj);
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+
+		try {
+			repo.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityExcepetion("não e possivel Ecluir categoria que possui produtor");
+		}
 	}
 
 }
