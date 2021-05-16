@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.Email;
+
 import com.springboot.api.domain.Cliente;
 
 public class ClienteDTO implements Serializable {
@@ -12,22 +14,20 @@ public class ClienteDTO implements Serializable {
 	private Integer id;
 
 	@NotEmpty(message = "Preenchimento obrigatorio")
-	@Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caractere")
+	@Length(min = 5, max = 120, message = "O tamanho deve ser entre 5 e 120 caractere")
 	private String nome;
 
 	@NotEmpty(message = "Preenchimento obrigatorio")
-	@Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caractere")
+	@Email(message = "Email invalido")
 	private String email;
 
-	@NotEmpty(message = "Preenchimento obrigatorio")
-	@Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caractere")
-	private String cpfUoCnpj;
+	
 
 	public ClienteDTO(Cliente obj) {
 		id = obj.getId();
 		nome = obj.getNome();
 		email = obj.getEmail();
-		cpfUoCnpj = obj.getCpfoucnpj();
+		
 
 	}
 
@@ -59,12 +59,6 @@ public class ClienteDTO implements Serializable {
 		this.email = email;
 	}
 
-	public String getCpfUoCnpj() {
-		return cpfUoCnpj;
-	}
-
-	public void setCpfoucnpj(String cpfUoCnpj) {
-		this.cpfUoCnpj = cpfUoCnpj;
-	}
+	
 
 }

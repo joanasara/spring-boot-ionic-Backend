@@ -36,8 +36,9 @@ public class ClienteSevice {
 	}
 
 	public Cliente update(Cliente obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Cliente newObj = find(obj.getId());
+		updateDate(newObj, obj);
+		return repo.save(newObj);
 	}
 
 	public void delete(Integer id) {
@@ -61,8 +62,13 @@ public class ClienteSevice {
 	}
 
 	public Cliente fromTDO(ClienteDTO objDto) {
-		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getCpfUoCnpj(), null);
+		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
 
+	}
+	
+	private void updateDate(Cliente newObj, Cliente obj) {
+		newObj.setNome(obj.getNome());
+		newObj.setEmail(obj.getEmail());
 	}
 
 }

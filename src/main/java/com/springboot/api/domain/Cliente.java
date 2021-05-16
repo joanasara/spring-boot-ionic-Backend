@@ -45,7 +45,7 @@ public class Cliente implements Serializable{
     private List<Pedido> pedidos = new ArrayList<>();
     
 	public Cliente() {
-		super();
+		
 	}
 
 	public Cliente(Integer id, String nome, String email, String cpfoucnpj, TipoCliente tipo) {
@@ -54,7 +54,7 @@ public class Cliente implements Serializable{
 		this.nome = nome;
 		this.email = email;
 		this.cpfUoCnpj = cpfoucnpj;
-		this.tipo = tipo.getCod();
+		this.tipo =(tipo==null)? null : tipo.getCod();
 	}
 
 	public Integer getId() {
