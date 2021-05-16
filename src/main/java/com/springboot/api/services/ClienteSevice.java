@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.springboot.api.domain.Cliente;
 
+import com.springboot.api.dto.ClienteDTO;
 import com.springboot.api.repository.ClienteRepository;
 import com.springboot.api.services.exceptions.DataIntegrityExcepetion;
 import com.springboot.api.services.exceptions.ObjectNotFoundException;
@@ -52,11 +53,15 @@ public class ClienteSevice {
 	public List<Cliente> findAll() {
 		return repo.findAll();
 	}
-	
-	
+
 	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+
+	}
+
+	public Cliente fromTDO(ClienteDTO objDto) {
+		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getCpfUoCnpj(), null);
 
 	}
 
