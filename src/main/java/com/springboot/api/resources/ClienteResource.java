@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.springboot.api.domain.Cliente;
 import com.springboot.api.dto.ClienteDTO;
+import com.springboot.api.dto.ClienteNewDTO;
 import com.springboot.api.services.ClienteSevice;
 
 @RestController
@@ -36,7 +37,7 @@ public class ClienteResource {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert( @Valid @RequestBody ClienteDTO objDto) {
+	public ResponseEntity<Void> insert( @Valid @RequestBody ClienteNewDTO objDto) {
 		Cliente obj = service.fromTDO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
