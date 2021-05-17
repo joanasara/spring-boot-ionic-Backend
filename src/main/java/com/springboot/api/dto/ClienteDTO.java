@@ -4,10 +4,13 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
-import javax.validation.constraints.Email;
 
 import com.springboot.api.domain.Cliente;
+import com.springboot.api.services.validation.ClienteUpdate;
 
+import javax.validation.constraints.Email;
+
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -21,13 +24,10 @@ public class ClienteDTO implements Serializable {
 	@Email(message = "Email invalido")
 	private String email;
 
-	
-
 	public ClienteDTO(Cliente obj) {
 		id = obj.getId();
 		nome = obj.getNome();
 		email = obj.getEmail();
-		
 
 	}
 
@@ -58,7 +58,5 @@ public class ClienteDTO implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	
 
 }
