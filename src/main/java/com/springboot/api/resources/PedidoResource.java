@@ -15,43 +15,39 @@ import com.springboot.api.domain.Pedido;
 import com.springboot.api.services.PedidoService;
 
 @RestController
-@RequestMapping(value ="/pedidos")
+@RequestMapping(value = "/pedidos")
 public class PedidoResource {
-	
+
 	@Autowired
 	private PedidoService service;
- 
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Pedido> find(@PathVariable Integer id) {
 		Pedido obj = service.find(id);
 
 		return ResponseEntity.ok().body(obj);
 	}
-	
-	@RequestMapping(method= RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Pedido obj){
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@RequestBody Pedido obj) {
 		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path
-				("/{id}").buildAndExpand(obj.getId()).toUri();
-		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+
 		return ResponseEntity.created(uri).build();
 	}
-	
-	
-	@RequestMapping(value= "/{id}", method= RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Pedido obj, @PathVariable Integer id){
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Pedido obj, @PathVariable Integer id) {
 		obj.setId(id);
-		obj = service .update(obj);
+		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@RequestMapping(value="/{id}",method=RequestMethod.DELETE)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
-	 service.delete(id);
-	 return ResponseEntity.noContent().build();
-	
-}
-	
-	
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+
+	}
+
 }
