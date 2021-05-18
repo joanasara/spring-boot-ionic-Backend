@@ -41,7 +41,7 @@ public class PedidoService {
 		try {
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityExcepetion("não e possivel Ecluir categoria que possui produtor");
+			throw new DataIntegrityExcepetion("não e possivel Ecluir Pedido ");
 		}
 	}
 
