@@ -8,5 +8,10 @@
     "name": "default.sender",
     "type": "java.lang.String",
     "description": "A description for 'default.sender'"
+  },
+  {
+    "name": "sousa678@gmail.comspr",
+    "type": "java.lang.String",
+    "description": "A description for 'sousa678@gmail.comspr'"
   }
 ]}
